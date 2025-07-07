@@ -1,0 +1,3 @@
+[submodule "kawah-stack-frontend"]
+	path = kawah-stack-frontend
+	url = https://github.com/fikrirazor/kawah-stack-frontend.git
