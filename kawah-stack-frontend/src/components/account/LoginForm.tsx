@@ -1,19 +1,36 @@
-// LoginForm.tsx
+// src/components/account/LoginForm.tsx
 import { useState } from "react";
 import Link from "next/link";
+import { useAuth } from "@/hooks/useAuth"; // Import useAuth
+import { useRouter } from "next/navigation";
+// Hapus import apiClient karena akan menggunakan useAuth
+// import apiClient from "@/services/apiClientWithAuth"; 
+
 export default function LoginForm() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [step, setStep] = useState(1);
+  const { login, loading, error } = useAuth(); // Ambil fungsi login dari useAuth
 
   const handleEmailSubmit = () => {
-    if (email) {
-      setStep(2);
+    if (email) setStep(2);
+  };
+
+  const handleLoginSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      // Panggil fungsi login dari useAuth
+      await login(email, password); 
+      router.push('/tasks'); // Redirect setelah login berhasil
+    } catch (err) {
+      // Error sudah ditangani di useAuth, tapi Anda bisa tambahkan log di sini jika perlu
+      console.error("Login form submission error:", err);
     }
   };
 
   return (
-    <form className="space-y-6">
+    <form className="space-y-6" onSubmit={step === 2 ? handleLoginSubmit : undefined}>
       {step === 1 && (
         <div className="relative">
           <input
@@ -38,6 +55,7 @@ export default function LoginForm() {
               onClick={handleEmailSubmit}
               type="button"
               className="w-full mt-2 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition duration-300 shadow-lg"
+              disabled={loading}
             >
               Continue
             </button>
@@ -78,12 +96,14 @@ export default function LoginForm() {
             <button
               type="submit"
               className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-xl font-semibold transition duration-300 shadow-lg"
+              disabled={loading}
             >
-              Login
+              {loading ? "Loading..." : "Login"}
             </button>
           </div>
         </div>
       )}
+      {error && <div className="text-red-600 text-sm text-center">{error}</div>}
       <div className="mt-4 text-center">
         <p>
           Belum punya akun?{" "}
