@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 
 const apiClientWithAuth = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/v1",
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
 });
 
