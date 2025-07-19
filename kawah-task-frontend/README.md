@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kawah Task Frontend
 
-## Getting Started
+## Tentang Proyek
 
-First, run the development server:
+Ini adalah aplikasi frontend yang dibangun dengan Next.js, TypeScript, dan Tailwind CSS. Proyek ini merupakan bagian dari **Kawah Task**, yang bertujuan untuk menyediakan antarmuka modern dan responsif untuk mengelola tugas atau data lainnya.
 
+### Fitur Utama
+* **Next.js 15:** Menggunakan versi terbaru dari kerangka kerja React yang powerful.
+* **TypeScript:** Meningkatkan kualitas kode dan mencegah bug dengan pengetikan statis.
+* **Tailwind CSS:** Untuk styling yang cepat dan efisien.
+* **ESLint & Prettier:** Memastikan kode bersih, konsisten, dan terformat dengan rapi.
+* **Husky & Lint-staged:** Menjalankan linter dan formatter secara otomatis sebelum setiap commit.
+* **Axios:** Klien HTTP untuk interaksi dengan API.
+
+---
+
+## Memulai Proyek
+
+Ikuti langkah-langkah di bawah ini untuk menjalankan proyek secara lokal.
+
+### Prasyarat
+
+Pastikan Anda memiliki [Node.js](https://nodejs.org/) (versi 18.x atau lebih baru) dan npm terinstal.
+
+### Instalasi
+
+1.  **Clone repositori ini:**
+    ```bash
+    git clone https://github.com/fikrirazor/kawah-task.git
+    cd kawah-task
+    cd kawah-task-frontend
+    ```
+2.  **Instal dependensi:**
+    ```bash
+    npm install
+    ```
+3.  **Siapkan variabel lingkungan:**
+    Buat file `.env.local` di root proyek. Tambahkan variabel lingkungan yang dibutuhkan, misalnya URL API. Lihat .env.local.example untuk contoh.
+    ```bash
+    NEXT_PUBLIC_API_URL=https://api.example.com
+    ```
+
+### Menjalankan Aplikasi
+
+Jalankan server pengembangan:
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
-ok
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Aplikasi akan tersedia di `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Skrip yang Tersedia
 
-## Learn More
+Berikut adalah daftar skrip yang dapat Anda gunakan di proyek ini:
 
-To learn more about Next.js, take a look at the following resources:
+* `npm run dev`
+    Menjalankan aplikasi dalam mode pengembangan. Fast Refresh akan aktif.
+* `npm run build`
+    Membangun aplikasi untuk produksi ke dalam folder `.next`.
+* `npm run start`
+    Menjalankan aplikasi yang sudah di-build dalam mode produksi.
+* `npm run lint`
+    Menjalankan ESLint untuk memeriksa masalah kode.
+* `npm run lint:fix`
+    Menjalankan ESLint dan secara otomatis memperbaiki masalah yang bisa diperbaiki.
+* `npm run prettier`
+    Memeriksa format kode menggunakan Prettier.
+* `npm run prettier:fix`
+    Secara otomatis memformat kode menggunakan Prettier.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Kualitas Kode
 
-## Deploy on Vercel
+Proyek ini menggunakan **Husky** dan **lint-staged** untuk menegakkan standar kualitas kode. Setiap kali Anda melakukan `git commit`, skrip berikut akan berjalan secara otomatis pada file yang diubah:
+* `next lint --fix`
+* `prettier --write`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Hal ini memastikan bahwa semua kode yang di-commit bersih, konsisten, dan bebas dari masalah umum.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Lisensi
+
+Proyek ini berada di bawah lisensi [Nama Lisensi] - lihat file [LICENSE.md](LICENSE.md) untuk detail lebih lanjut.
