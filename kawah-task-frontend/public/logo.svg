@@ -1,0 +1,35 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="32.04pt"
+    height="18pt"
+    viewBox="0 0 32.04 18">
+<defs>
+  <linearGradient id="gradient0" gradientUnits="objectBoundingBox" x1="0" y1="0" x2="1" y2="1" spreadMethod="pad">
+   <stop stop-color="#2d3193" offset="0" stop-opacity="1"/>
+   <stop stop-color="#0072bc" offset="0.648251" stop-opacity="1"/>
+   <stop stop-color="#00aeee" offset="0.951673" stop-opacity="1"/>
+   <stop stop-color="#3b8bc9" offset="0.989777" stop-opacity="1"/>
+   <stop stop-color="#2d3193" offset="1" stop-opacity="1"/>
+  </linearGradient>
+  <linearGradient id="gradient1" gradientUnits="objectBoundingBox" x1="0" y1="0" x2="1" y2="1" spreadMethod="pad">
+   <stop stop-color="#2d3193" offset="0" stop-opacity="1"/>
+   <stop stop-color="#0072bc" offset="0.648250997066498" stop-opacity="1"/>
+   <stop stop-color="#00aeee" offset="0.951672971248627" stop-opacity="1"/>
+   <stop stop-color="#3b8bc9" offset="0.989777028560638" stop-opacity="1"/>
+   <stop stop-color="#2d3193" offset="1" stop-opacity="1"/>
+  </linearGradient>
+  <linearGradient id="gradient2" gradientUnits="objectBoundingBox" x1="0" y1="0" x2="1" y2="1" spreadMethod="pad">
+   <stop stop-color="#2d3193" offset="0" stop-opacity="1"/>
+   <stop stop-color="#0072bc" offset="0.648251" stop-opacity="1"/>
+   <stop stop-color="#00aeee" offset="0.951673" stop-opacity="1"/>
+   <stop stop-color="#3b8bc9" offset="0.989777" stop-opacity="1"/>
+   <stop stop-color="#2d3193" offset="1" stop-opacity="1"/>
+  </linearGradient>
+ </defs>
+<path id="shape0" transform="matrix(1.67984940372627 0 0 1.67984940372627 4.57389225476259 -0.124858468109707)" fill="url(#gradient0)" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M2.58034 4.2L4.41034 0.51L5.43034 0L5.04034 2.19L4.50034 4.59L3.00034 6.51L1.95034 5.52L0.420341 6.93L0.000340909 6.87C-0.0196591 6.87 0.840341 5.98 2.58034 4.2Z" sodipodi:nodetypes="cccccccccc"/><path id="shape1" transform="matrix(1.67984940372627 0 0 1.67984940372627 16.9717534630822 0.278305388084534)" fill="url(#gradient1)" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M0 0.51L1.14 0L2.46 0.27L5.58 5.82L4.23 4.95L4.05 6.3L2.25 4.11L0.81 4.08C0.81 4.08 0.54 2.89 0 0.51Z" sodipodi:nodetypes="ccccccccc"/><path id="shape2" transform="translate(-8.88178419700125e-16, 4.32000007616977)" fill="url(#gradient2)" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M0 0L9.27049 0L9.2689 0.00323L9.17691 0.18844L9.08788 0.3669L9.00182 0.53862L8.91872 0.70358L8.83858 0.86181L8.7614 1.01328L8.68719 1.15801L8.61593 1.29599L8.54764 1.42722L8.48231 1.55171L8.41995 1.66945L8.36054 1.78044L8.3041 1.88469L8.25062 1.98219L8.2001 2.07294L8.15254 2.15695L8.09208 2.25786L8.02191 2.36596L7.94203 2.48125L7.85245 2.60374L7.75315 2.73341L7.64415 2.87028L7.52545 3.01433L7.39703 3.16558L7.25891 3.32401L7.11108 3.48964L6.95354 3.6625L6.78629 3.8425L6.60934 4.0297L6.42268 4.2241L6.22631 4.4256L6.02023 4.6344L5.80445 4.8504L5.57896 5.0735L5.34376 5.3039L5.09885 5.5414L4.84424 5.7861L4.74576 5.88L0 5.88L0 0M23.7913 0L32.04 0L32.04 5.88L27.6197 5.88L27.599 5.8563L27.4852 5.7227L27.37 5.5838L27.2533 5.4396L27.135 5.2899L27.0152 5.1349L26.8939 4.9745L26.771 4.8088L26.6467 4.6376L26.5208 4.4611L26.3933 4.2793L26.2644 4.092L26.1339 3.8994L26.002 3.7014L25.8684 3.49809L25.7334 3.28936L25.5968 3.07527L25.4588 2.8558L25.3192 2.63096L25.178 2.40076L25.0354 2.16518L24.8912 1.92423L24.7455 1.67791L24.5983 1.42621L24.4495 1.16915L24.2992 0.90672L24.1475 0.63891L23.9941 0.36574L23.8393 0.08719L23.7913 0M20.5935 5.88L19.1467 5.88L18.7734 4.3869L19.6049 3.8578L20.5935 5.88M13.7264 5.88L12.0263 5.88L12.537 4.8783L13.8976 4.4247L13.7264 5.88M8.66133 5.88L8.12332 5.88L9.00927 5.0295L8.66133 5.88" sodipodi:nodetypes="ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"/><text id="shape3" krita:useRichText="true" text-rendering="auto" krita:textVersion="3" transform="matrix(0.732125556638639 0 0 0.732125556638639 5.63288870509494 15.7991321599988)" fill="#232021" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" kerning="none" letter-spacing="0.3" word-spacing="0" style="text-align: start;text-align-last: auto;font-family: Antonio;font-size: 6;"><tspan x="0">Kawah</tspan></text><text id="shape01" krita:useRichText="true" text-rendering="auto" krita:textVersion="3" transform="matrix(0.732125556638639 0 0 0.732125556638639 18.2162006820158 15.8115294989293)" fill="#232021" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" kerning="none" letter-spacing="0.3" word-spacing="0" style="text-align: start;text-align-last: auto;font-family: Antonio;font-size: 6;"><tspan x="0"> Task</tspan></text>
+</svg>
