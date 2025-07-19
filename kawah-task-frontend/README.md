@@ -32,7 +32,7 @@ Pastikan Anda memiliki [Node.js](https://nodejs.org/) (versi 18.x atau lebih bar
     ```
 2.  **Instal dependensi:**
     ```bash
-    npm install
+    npm install 
     ```
 3.  **Siapkan variabel lingkungan:**
     Buat file `.env.local` di root proyek. Tambahkan variabel lingkungan yang dibutuhkan, misalnya URL API. Lihat .env.local.example untuk contoh.
