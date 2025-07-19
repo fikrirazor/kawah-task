@@ -1,12 +1,13 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { InternalAxiosRequestConfig } from "axios"; // Ganti import
 
 const apiClientWithAuth = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
 });
 
+// Interceptor request
 apiClientWithAuth.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+  (config: InternalAxiosRequestConfig) => {
     const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
     if (token) {
       config.headers = config.headers || {};
@@ -14,11 +15,12 @@ apiClientWithAuth.interceptors.request.use(
     } else {
       console.warn("No auth token found in localStorage");
     }
-    return config;
+    return config; // Harus kembalikan InternalAxiosRequestConfig
   },
   (error) => Promise.reject(error)
 );
 
+// Interceptor response tetap sama
 apiClientWithAuth.interceptors.response.use(
   (response) => response,
   (error) => {

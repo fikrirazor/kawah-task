@@ -11,6 +11,10 @@ export interface User {
   isEmailVerified: boolean;
 }
 
+function isErrorWithResponse(error: unknown): error is { response?: { data?: { message?: string } } } {
+  return typeof error === 'object' && error !== null && 'response' in error;
+}
+
 export function useAuth() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -21,20 +25,25 @@ export function useAuth() {
     setLoading(true);
     try {
       const res = await apiClient.post("/auth/login", { email, password });
-      
-      const { user: userDataFromServer, tokens } = res.data; 
+      const { user: userDataFromServer, tokens } = res.data;
       const { access, refresh } = tokens;
 
       if (typeof window !== "undefined") {
         localStorage.setItem("token", access.token);
         localStorage.setItem("refreshToken", refresh.token);
-        localStorage.setItem("user", JSON.stringify(userDataFromServer)); 
+        localStorage.setItem("user", JSON.stringify(userDataFromServer));
       }
-      setUser(userDataFromServer); 
+      setUser(userDataFromServer);
       setError("");
       return res.data;
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Login failed");
+    } catch (err: unknown) {
+      let message = "Login failed";
+      if (isErrorWithResponse(err)) {
+        message = err.response?.data?.message || message;
+      } else if (err instanceof Error) {
+        message = err.message;
+      }
+      setError(message);
       throw err;
     } finally {
       setLoading(false);
@@ -47,8 +56,14 @@ export function useAuth() {
       const res = await apiClient.post("/auth/register", { name, email, password });
       setError("");
       return res.data;
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Registrasi gagal");
+    } catch (err: unknown) {
+      let message = "Registrasi gagal";
+      if (isErrorWithResponse(err)) {
+        message = err.response?.data?.message || message;
+      } else if (err instanceof Error) {
+        message = err.message;
+      }
+      setError(message);
       throw err;
     } finally {
       setLoading(false);
@@ -63,9 +78,16 @@ export function useAuth() {
       if (refreshToken) {
         await apiClient.post("/auth/logout", { refreshToken });
       }
-    } catch (err: any) {
-      console.error("Logout failed on backend:", err.response?.data || err);
-      setError(err.response?.data?.message || "Logout failed");
+    } catch (err: unknown) {
+      let message = "Logout failed";
+      if (isErrorWithResponse(err)) {
+        message = err.response?.data?.message || message;
+      } else if (err instanceof Error) {
+        message = err.message;
+      }
+      console.error("Logout failed on backend:", message);
+      setError(message);
+      throw err;
     } finally {
       if (typeof window !== "undefined") {
         localStorage.removeItem("token");

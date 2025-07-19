@@ -1,15 +1,19 @@
-// src/app/tasks/page.tsx
 "use client";
+
 import TaskCard from "../../components/TaskCard";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useTasks } from "../../hooks/useTasks";
+import { useTasks, Task } from "../../hooks/useTasks";
 import { useAuth } from "../../hooks/useAuth";
-import type { Task } from "../../hooks/useTasks";
-import type { User } from "../../hooks/useAuth";
+import { AxiosError } from "axios";
 
-// Header component
-const Header = ({ userName, onLogout }) => (
+// Define props for Header component
+interface HeaderProps {
+  userName?: string;
+  onLogout: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ userName, onLogout }) => (
   <section className="header">
     <nav className="flex justify-between items-center">
       <Link
@@ -20,9 +24,12 @@ const Header = ({ userName, onLogout }) => (
       </Link>
       <ul className="flex gap-4 text-blue-950">
         <Link href="/profile" className="text-blue-600">
-          {userName ? userName : "Profile"}
+          {userName ?? "Profile"}
         </Link>
-        <button onClick={onLogout} className="text-red-600 bg-transparent border-none cursor-pointer p-0">
+        <button
+          onClick={onLogout}
+          className="text-red-600 bg-transparent border-none cursor-pointer p-0"
+        >
           Logout
         </button>
       </ul>
@@ -30,8 +37,19 @@ const Header = ({ userName, onLogout }) => (
   </section>
 );
 
+// Define props for AddTaskForm
+interface AddTaskFormProps {
+  newTask: Omit<Task, "_id" | "createdAt" | "updatedAt" | "user">;
+  handleFormChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => void;
+  handleFormSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+  setNewTask: React.Dispatch<
+    React.SetStateAction<Omit<Task, "_id" | "createdAt" | "updatedAt" | "user">>
+  >;
+}
 
-const AddTaskForm = ({
+const AddTaskForm: React.FC<AddTaskFormProps> = ({
   newTask,
   handleFormChange,
   handleFormSubmit,
@@ -52,9 +70,8 @@ const AddTaskForm = ({
       <textarea
         placeholder="Task description"
         className="w-full border rounded px-3 py-2 mb-3"
-        required
         name="description"
-        value={newTask.description}
+        value={newTask.description ?? ""}
         onChange={handleFormChange}
         rows={3}
       />
@@ -76,7 +93,9 @@ const AddTaskForm = ({
         <button
           type="reset"
           className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 transition"
-          onClick={() => setNewTask({ title: "", description: "", status: "pending" })}
+          onClick={() =>
+            setNewTask({ title: "", description: "", status: "pending" })
+          }
         >
           Clear
         </button>
@@ -91,16 +110,19 @@ const AddTaskForm = ({
   );
 };
 
-const FilterTasks = ({
-  handleFilterChange,
-  filter,
-}) => {
+// Define props for FilterTasks
+interface FilterTasksProps {
+  handleFilterChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  filter: { title?: string; status?: string };
+}
+
+const FilterTasks: React.FC<FilterTasksProps> = ({ handleFilterChange, filter }) => {
   return (
     <div className="mb-4 flex justify-between items-center">
       <select
         className="border rounded px-3 py-2"
         onChange={handleFilterChange}
-        value={filter.status || ""}
+        value={filter.status ?? ""}
       >
         <option value="">All Status</option>
         <option value="pending">Pending</option>
@@ -108,8 +130,8 @@ const FilterTasks = ({
         <option value="completed">Completed</option>
       </select>
     </div>
-  )
-}
+  );
+};
 
 export default function TasksPage() {
   const {
@@ -121,22 +143,23 @@ export default function TasksPage() {
     updateTask,
     deleteTask,
   } = useTasks();
-  
-  const { user, logout, loading: authLoading } = useAuth(); 
 
+  
+  const { user, logout, loading: authLoading } = useAuth();
   const [editingTask, setEditingTask] = useState<Task | null>(null);
-  const [newTask, setNewTask] = useState({
+  const [newTask, setNewTask] = useState<
+    Omit<Task, "_id" | "createdAt" | "updatedAt" | "user">
+  >({
     title: "",
     description: "",
-    status: "pending" as "pending" | "in-progress" | "completed",
+    status: "pending",
   });
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [filter, setFilter] = useState<{ title?: string; status?: string }>({});
-
   const [isAuthLoaded, setIsAuthLoaded] = useState(false);
 
   useEffect(() => {
-    if (!authLoading) { 
+    if (!authLoading) {
       setIsAuthLoaded(true);
       if (!user && typeof window !== "undefined" && !localStorage.getItem("token")) {
         window.location.href = "/login";
@@ -159,9 +182,10 @@ export default function TasksPage() {
       setEditingTask(null);
       setErrorMessage(null);
       await fetchTasks(filter);
-    } catch (err) {
-      setErrorMessage("Gagal memperbarui tugas.");
-      console.error("Update task error:", err);
+    } catch (err: unknown) {
+      const error = err as AxiosError<{ message?: string }>;
+      setErrorMessage(error.response?.data?.message || "Gagal memperbarui tugas.");
+      console.error("Update task error:", error);
     }
   };
 
@@ -171,16 +195,15 @@ export default function TasksPage() {
       setEditingTask(null);
       setErrorMessage(null);
       await fetchTasks(filter);
-    } catch (err) {
-      setErrorMessage("Gagal menghapus tugas.");
-      console.error("Delete task error:", err);
+    } catch (err: unknown) {
+      const error = err as AxiosError<{ message?: string }>;
+      setErrorMessage(error.response?.data?.message || "Gagal menghapus tugas.");
+      console.error("Delete task error:", error);
     }
   };
 
   const handleFormChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     setNewTask({ ...newTask, [e.target.name]: e.target.value });
   };
@@ -190,20 +213,22 @@ export default function TasksPage() {
     setFilter({ status: status || undefined });
   };
 
-  const handleFormSubmit = async (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await addTask({
         title: newTask.title,
-        description: newTask.description,
+        description: newTask.description || undefined, // Handle optional description
         status: newTask.status,
       });
       setNewTask({ title: "", description: "", status: "pending" });
+
       setErrorMessage(null);
       await fetchTasks(filter);
-    } catch (err) {
-      setErrorMessage("Gagal menambahkan tugas.");
-      console.error("Add task error:", err);
+    } catch (err: unknown) {
+      const error = err as AxiosError<{ message?: string }>;
+      setErrorMessage(error.response?.data?.message || "Gagal menambahkan tugas.");
+      console.error("Add task error:", error);
     }
   };
 
@@ -213,12 +238,8 @@ export default function TasksPage() {
 
   return (
     <div className="min-h-screen p-6 bg-gray-100">
-
-      <Header userName={user?.name} onLogout={logout} /> 
-      <FilterTasks
-        handleFilterChange={handleFilterChange}
-        filter={filter}
-      />
+      <Header userName={user?.name} onLogout={logout} />
+      <FilterTasks handleFilterChange={handleFilterChange} filter={filter} />
       {(tasksError || errorMessage) && (
         <p className="text-red-500 mb-4">{tasksError || errorMessage}</p>
       )}
@@ -236,7 +257,7 @@ export default function TasksPage() {
                 <div className="bg-white p-4 rounded shadow">
                   <input
                     type="text"
-                    value={editingTask.title || ""}
+                    value={editingTask.title ?? ""}
                     onChange={(e) =>
                       setEditingTask({
                         ...editingTask,
@@ -247,11 +268,11 @@ export default function TasksPage() {
                     placeholder="Task title"
                   />
                   <textarea
-                    value={editingTask.description || ""}
+                    value={editingTask.description ?? ""}
                     onChange={(e) =>
                       setEditingTask({
                         ...editingTask,
-                        description: e.target.value,
+                        description: e.target.value || undefined,
                       })
                     }
                     className="w-full text-sm text-gray-600 bg-transparent focus:outline-none focus:ring-0 mb-2 resize-none"
@@ -323,10 +344,7 @@ export default function TasksPage() {
               ) : (
                 <TaskCard
                   key={task._id}
-                  title={task.title}
-                  description={task.description}
-                  createdAt={task.createdAt}
-                  status={task.status}
+                  task={task} // Pass the entire task object
                 />
               )}
             </li>
